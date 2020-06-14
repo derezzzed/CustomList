@@ -20,17 +20,44 @@ public class RationalNumber implements Comparable<RationalNumber> {
     }
 
 
+    int minusMinus(RationalNumber o) {
+        Integer integer;
+
+        int thisObjNumerator = Math.abs(numerator);
+        int thisObjDenomirator = Math.abs(denomirator);
+        int anotherObjNumerator = Math.abs(o.getNumerator());
+        int anotherObjDenomirator = Math.abs(o.getDenumirator());
+
+        int lmc = GcgFinder.lcm(thisObjDenomirator, anotherObjDenomirator);
+        int a = lmc / thisObjDenomirator * thisObjNumerator;
+        int b = lmc / anotherObjDenomirator * anotherObjNumerator;
+        integer = b;
+        return integer.compareTo(a);
+    }
+    int plusPlus(RationalNumber o) {
+        Integer integer;
+
+        int lmc = GcgFinder.lcm(denomirator, o.getDenumirator());
+        int a = lmc / denomirator * numerator;
+        int b = lmc / o.getDenumirator() * o.getNumerator();
+        integer = a;
+        return integer.compareTo(b);
+    }
     @Override
     public int compareTo(RationalNumber o) {
-
-        int a = numerator * 2;
-        int b = o.getNumerator() * 2;
-
-        if (a == denomirator && b == o.getDenumirator()) return 0;
-
-        else if (denomirator > o.getDenumirator()) return 1;
-
-        else return -1;
+       if (numerator > 0 && o.getNumerator() > 0) {
+           plusPlus(o);
+       }
+       else if (numerator < 0 && o.getNumerator() < 0) {
+           minusMinus(o);
+       }
+       else if (numerator > 0 && o.getNumerator() < 0) {
+           return 1;
+       }
+       else if (numerator < 0 && o.getNumerator() > 0) {
+           return -1;
+       }
+       return 0;
     }
 
     @Override
