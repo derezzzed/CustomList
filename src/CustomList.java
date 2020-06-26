@@ -1,13 +1,14 @@
 import java.util.AbstractList;
 
-public class CustomList <T extends Comparable<RationalNumber>> extends AbstractList {
+public class CustomList <T extends Comparable<T>> extends AbstractList {
 
     private Object[] data;
     private int size;
+    private static final int DEFAULT_CAPACITY = 10;
 
     CustomList() {
 
-        data = new Object[10];
+        data = new Object[DEFAULT_CAPACITY];
     }
 
     CustomList(int capacity) {
@@ -23,10 +24,7 @@ public class CustomList <T extends Comparable<RationalNumber>> extends AbstractL
     public boolean add(Object o) {
 
         if (size > data.length - 1) {
-
-            Object[] temp = new Object[data.length * 2];
-            System.arraycopy(data, 0, temp, 0, data.length);
-            data = temp;
+            arrayIncrease();
         }
 
         data[size++] = o;
@@ -41,10 +39,7 @@ public class CustomList <T extends Comparable<RationalNumber>> extends AbstractL
         }
 
         if (size > data.length - 1) {
-
-            Object[] temp = new Object[data.length * 2];
-            System.arraycopy(data, 0, temp, 0, data.length);
-            data = temp;
+            arrayIncrease();
         }
 
         for (int i = size(); i > index; i--) {
@@ -53,6 +48,12 @@ public class CustomList <T extends Comparable<RationalNumber>> extends AbstractL
 
         data[index] = element;
         size++;
+    }
+
+    private void arrayIncrease() {
+        Object[] temp = new Object[data.length * 2];
+        System.arraycopy(data, 0, temp, 0, data.length);
+        data = temp;
     }
 
     @Override

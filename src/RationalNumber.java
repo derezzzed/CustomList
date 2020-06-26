@@ -20,51 +20,13 @@ public class RationalNumber implements Comparable<RationalNumber> {
     }
 
 
-    int minusMinus(RationalNumber o) {
-        Integer integer;
-
-        int thisObjNumerator = Math.abs(numerator);
-        int thisObjDenomirator = Math.abs(denomirator);
-        int anotherObjNumerator = Math.abs(o.getNumerator());
-        int anotherObjDenomirator = Math.abs(o.getDenumirator());
-
-        int lmc = GcgFinder.lcm(thisObjDenomirator, anotherObjDenomirator);
-        int a = lmc / thisObjDenomirator * thisObjNumerator;
-        int b = lmc / anotherObjDenomirator * anotherObjNumerator;
-        integer = b;
-        return integer.compareTo(a);
-    }
-    int plusPlus(RationalNumber o) {
-        Integer integer;
-
-        int lmc = GcgFinder.lcm(denomirator, o.getDenumirator());
-        int a = lmc / denomirator * numerator;
-        int b = lmc / o.getDenumirator() * o.getNumerator();
-        integer = a;
-        return integer.compareTo(b);
-    }
     @Override
     public int compareTo(RationalNumber o) {
-       if (numerator > 0 && o.getNumerator() > 0) {
-           plusPlus(o);
-       }
-       else if (numerator < 0 && o.getNumerator() < 0) {
-           minusMinus(o);
-       }
-       else if (numerator > 0 && o.getNumerator() < 0) {
-           return 1;
-       }
-       else if (numerator < 0 && o.getNumerator() > 0) {
-           return -1;
-       }
-       return 0;
+      return  numerator * o.getDenumirator() - denomirator * o.getNumerator();
     }
 
     @Override
     public String toString() {
-        return "RationalNumber{" +
-                "numerator=" + numerator +
-                ", denumerator=" + denomirator +
-                '}';
+        return new StringBuilder().append(numerator).append(" ").append(denomirator).toString();
     }
 }
